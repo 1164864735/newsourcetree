@@ -3,16 +3,26 @@ package com.itheima.sexygirl;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+
+    private List<SexyGirlBean.NewslistBean> mDataList;
 
     @BindView(R.id.list_view)
     ListView mListView;
@@ -36,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onResponse(SexyGirlBean response) {
             Log.d(TAG, "onResponse: " + response.getNewslist().get(0).getTitle());
+            mDataList = response.getNewslist();
+            mListView.setAdapter(mBaseAdapter);
         }
     };
 
@@ -45,5 +57,53 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    private BaseAdapter mBaseAdapter = new BaseAdapter() {
+        @Override
+        public int getCount() {
+            return mDataList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            ViewHolder vh = null;
+            if (view == null) {
+                view = LayoutInflater.from(MainActivity.this).inflate(R.layout.list_item_view, null);
+                vh = new ViewHolder(view);
+                view.setTag(vh);
+            } else {
+                vh = (ViewHolder) view.getTag();
+            }
+
+            //刷新标题
+            vh.mTitle.setText(mDataList.get(i).getTitle());
+
+            return view;
+        }
+    };
+
+    public class ViewHolder {
+
+        @BindView(R.id.list_image)
+        public ImageView mImageView;
+
+        @BindView(R.id.list_title)
+        public TextView mTitle;
+
+        public ViewHolder(View root) {
+            ButterKnife.bind(this, root);
+        }
+
+    }
 
 }
