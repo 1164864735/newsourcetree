@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -89,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
             //刷新标题
             vh.mTitle.setText(data.getTitle());
             //刷新图片
-            Glide.with(MainActivity.this).load(data.getPicUrl()).into(vh.mImageView);
+            Glide.with(MainActivity.this).load(data.getPicUrl())
+                    .bitmapTransform(new CropCircleTransformation(MainActivity.this))
+                    .into(vh.mImageView);
             return view;
         }
     };
