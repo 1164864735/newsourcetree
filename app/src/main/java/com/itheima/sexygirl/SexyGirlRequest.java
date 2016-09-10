@@ -1,9 +1,12 @@
 package com.itheima.sexygirl;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
@@ -61,4 +64,10 @@ public class SexyGirlRequest<T> extends JsonRequest<T> {
 		return null;
 	}
 
+	@Override
+	public Map<String, String> getHeaders() throws AuthFailureError {
+		HashMap<String,String> hashMap = new HashMap<String, String>();
+		hashMap.put("apikey", "9cf5aecf1fd1c219a835903acca0f53b");
+		return hashMap;
+	}
 }
