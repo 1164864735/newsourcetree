@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -84,10 +85,11 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 vh = (ViewHolder) view.getTag();
             }
-
+            SexyGirlBean.NewslistBean data = mDataList.get(i);
             //刷新标题
-            vh.mTitle.setText(mDataList.get(i).getTitle());
-
+            vh.mTitle.setText(data.getTitle());
+            //刷新图片
+            Glide.with(MainActivity.this).load(data.getPicUrl()).into(vh.mImageView);
             return view;
         }
     };
