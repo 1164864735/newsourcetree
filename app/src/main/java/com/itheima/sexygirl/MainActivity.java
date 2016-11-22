@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadDatafromServer() {
+        Log.d(TAG, "loadDatafromServer");
         String url = "http://apis.baidu.com/txapi/mvtp/meinv?num=30";
         SexyGirlRequest<SexyGirlBean> request = new SexyGirlRequest<>(url, SexyGirlBean.class, mSexyGirlBeanListener, mErrorListener );
         NetworkManager.sendRequest(request);
